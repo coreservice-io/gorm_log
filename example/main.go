@@ -1,9 +1,3 @@
-# GormULog
-
-logger for gorm using ULog
-
-example
-```go
 package main
 
 import (
@@ -59,4 +53,3 @@ func main() {
 	db.Debug().Last(&qp)
 	logger.Debugln(qp)
 }
-```

@@ -14,7 +14,6 @@ import (
 	"github.com/universe-30/ULog"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	gormlogger "gorm.io/gorm/logger"
 )
 
 type Person struct {
@@ -34,7 +33,10 @@ func main() {
 		Logger: GormULog.New_gormLocalLogger(logger, GormULog.Config{
 			SlowThreshold:             500 * time.Millisecond,
 			IgnoreRecordNotFoundError: false,
-			LogLevel:                  gormlogger.Info, //Level: Silent Error Warn Info. Info will log all record.
+			//Level: Silent Error Warn Info. 
+			//Info logs all record.
+			//Silent turns off log.
+			LogLevel:                  GormULog.Info,
 		}),
 	})
 	if err != nil {
@@ -59,4 +61,5 @@ func main() {
 	db.Debug().Last(&qp)
 	logger.Debugln(qp)
 }
+
 ```

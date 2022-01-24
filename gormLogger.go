@@ -11,15 +11,28 @@ import (
 	"gorm.io/gorm/utils"
 )
 
+// LogLevel
+
+type LogLevel int
+
+const (
+	Silent LogLevel = iota + 1
+	Error
+	Warn
+	Info
+)
+
 type Config struct {
 	SlowThreshold             time.Duration
 	IgnoreRecordNotFoundError bool
-	LogLevel                  gormlogger.LogLevel
+	LogLevel                  LogLevel
 }
 
 type gormLocalLogger struct {
-	LocalLogger ULog.Logger
-	Config
+	LocalLogger               ULog.Logger
+	gormLogLevel              gormlogger.LogLevel
+	SlowThreshold             time.Duration
+	IgnoreRecordNotFoundError bool
 
 	infoStr, warnStr, errStr            string
 	traceStr, traceErrStr, traceWarnStr string
@@ -39,31 +52,31 @@ func New_gormLocalLogger(ulog ULog.Logger, config Config) *gormLocalLogger {
 		config.SlowThreshold = 500 * time.Millisecond
 	}
 	if config.LogLevel == 0 {
-		config.LogLevel = gormlogger.Warn
+		config.LogLevel = LogLevel(gormlogger.Warn)
 	}
 
 	l.SlowThreshold = config.SlowThreshold
 	l.IgnoreRecordNotFoundError = config.IgnoreRecordNotFoundError
-	l.LogLevel = config.LogLevel
+	l.gormLogLevel = gormlogger.LogLevel(config.LogLevel)
 
 	return l
 }
 
 func (l *gormLocalLogger) LogMode(level gormlogger.LogLevel) gormlogger.Interface {
 	newlogger := *l
-	newlogger.LogLevel = level
+	newlogger.gormLogLevel = level
 	return &newlogger
 }
 
 func (l *gormLocalLogger) Trace(ctx context.Context, begin time.Time, fc func() (string, int64), err error) {
 
-	if l.LogLevel <= gormlogger.Silent {
+	if l.gormLogLevel <= gormlogger.Silent {
 		return
 	}
 
 	elapsed := time.Since(begin)
 	switch {
-	case err != nil && l.LogLevel >= gormlogger.Error && (!errors.Is(err, gormlogger.ErrRecordNotFound) || !l.IgnoreRecordNotFoundError):
+	case err != nil && l.gormLogLevel >= gormlogger.Error && (!errors.Is(err, gormlogger.ErrRecordNotFound) || !l.IgnoreRecordNotFoundError):
 		sql, rows := fc()
 		var s string
 		if rows == -1 {
@@ -74,7 +87,7 @@ func (l *gormLocalLogger) Trace(ctx context.Context, begin time.Time, fc func() 
 			//l.Printf(l.traceErrStr, utils.FileWithLineNum(), err, float64(elapsed.Nanoseconds())/1e6, rows, sql)
 		}
 		l.LocalLogger.Errorln(s)
-	case elapsed > l.SlowThreshold && l.SlowThreshold != 0 && l.LogLevel >= gormlogger.Warn:
+	case elapsed > l.SlowThreshold && l.SlowThreshold != 0 && l.gormLogLevel >= gormlogger.Warn:
 		sql, rows := fc()
 		var s string
 		slowLog := fmt.Sprintf("SLOW SQL >= %v", l.SlowThreshold)
@@ -86,7 +99,7 @@ func (l *gormLocalLogger) Trace(ctx context.Context, begin time.Time, fc func() 
 			//l.Printf(l.traceWarnStr, utils.FileWithLineNum(), slowLog, float64(elapsed.Nanoseconds())/1e6, rows, sql)
 		}
 		l.LocalLogger.Warnln(s)
-	case l.LogLevel == gormlogger.Info:
+	case l.gormLogLevel == gormlogger.Info:
 		sql, rows := fc()
 		var s string
 		if rows == -1 {
@@ -101,7 +114,7 @@ func (l *gormLocalLogger) Trace(ctx context.Context, begin time.Time, fc func() 
 }
 
 func (l *gormLocalLogger) Info(ctx context.Context, msg string, data ...interface{}) {
-	if l.LogLevel >= gormlogger.Info {
+	if l.gormLogLevel >= gormlogger.Info {
 		//l.Printf(l.infoStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
 
 		s := fmt.Sprintf(l.infoStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
@@ -110,7 +123,7 @@ func (l *gormLocalLogger) Info(ctx context.Context, msg string, data ...interfac
 }
 
 func (l *gormLocalLogger) Warn(ctx context.Context, msg string, data ...interface{}) {
-	if l.LogLevel >= gormlogger.Warn {
+	if l.gormLogLevel >= gormlogger.Warn {
 		//l.Printf(l.warnStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
 
 		s := fmt.Sprintf(l.warnStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
@@ -119,7 +132,7 @@ func (l *gormLocalLogger) Warn(ctx context.Context, msg string, data ...interfac
 }
 
 func (l *gormLocalLogger) Error(ctx context.Context, msg string, data ...interface{}) {
-	if l.LogLevel >= gormlogger.Error {
+	if l.gormLogLevel >= gormlogger.Error {
 		//l.Printf(l.errStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
 
 		s := fmt.Sprintf(l.errStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)

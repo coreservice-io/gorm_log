@@ -9,9 +9,9 @@ package main
 import (
 	"time"
 
-	"github.com/universe-30/GormULog"
-	"github.com/universe-30/LogrusULog"
-	"github.com/universe-30/ULog"
+	"github.com/coreservice-io/GormULog"
+	"github.com/coreservice-io/LogrusULog"
+	"github.com/coreservice-io/ULog"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )

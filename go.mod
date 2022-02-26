@@ -1,10 +1,10 @@
-module github.com/universe-30/GormULog
+module github.com/coreservice-io/GormULog
 
 go 1.17
 
 require (
-	github.com/universe-30/LogrusULog v0.1.17
-	github.com/universe-30/ULog v0.1.15
+	github.com/coreservice-io/LogrusULog v0.1.18
+	github.com/coreservice-io/ULog v0.1.16
 	gorm.io/driver/sqlite v1.2.6
 	gorm.io/gorm v1.22.5
 )

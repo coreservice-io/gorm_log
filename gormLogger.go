@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/universe-30/ULog"
+	"github.com/coreservice-io/ULog"
 	gormlogger "gorm.io/gorm/logger"
 	"gorm.io/gorm/utils"
 )

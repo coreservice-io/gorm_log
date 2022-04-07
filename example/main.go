@@ -11,9 +11,9 @@ import (
 )
 
 type Person struct {
-	ID   uint   `gorm:"primaryKey"`
+	ID   int64  `gorm:"primaryKey"`
 	Name string `gorm:"index"`
-	Age  int    `gorm:"index"`
+	Age  int64  `gorm:"index"`
 }
 
 func main() {

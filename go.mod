@@ -3,8 +3,8 @@ module github.com/coreservice-io/GormULog
 go 1.17
 
 require (
-	github.com/coreservice-io/LogrusULog v0.1.18
-	github.com/coreservice-io/ULog v0.1.16
+	github.com/coreservice-io/LogrusULog v0.1.19
+	github.com/coreservice-io/ULog v0.1.17
 	gorm.io/driver/sqlite v1.2.6
 	gorm.io/gorm v1.22.5
 )

@@ -1,9 +1,9 @@
 github.com/BurntSushi/toml v0.4.1 h1:GaI7EiDXDRfa8VshkTj7Fym7ha+y8/XxIgD2okUIjLw=
 github.com/BurntSushi/toml v0.4.1/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
-github.com/coreservice-io/LogrusULog v0.1.18 h1:UvGpGEWi45GpUqGkp+iKELZTXCiMmQ7A/pvgTzC+XnM=
-github.com/coreservice-io/LogrusULog v0.1.18/go.mod h1:9ptUgo0PIKXv7L5y9TDDD6vUbt9VimYNT83mG6npZ9E=
-github.com/coreservice-io/ULog v0.1.16 h1:igrNoT0xGeL32hgKPahoTCm9ifhRu32uH9VX+2fvw/k=
-github.com/coreservice-io/ULog v0.1.16/go.mod h1:AUDPBWJxVLwVXzge/aAV4p9AFcpzn1YyWU+u5b8s9Pg=
+github.com/coreservice-io/LogrusULog v0.1.19 h1:dvq2RrzDBQwC9vSgyHi99LFdLFLIC6zuPevYF8Re8lE=
+github.com/coreservice-io/LogrusULog v0.1.19/go.mod h1:G92lJKzc19J8tLNFNmO607FTHxpMXJQB3fp/x269VQw=
+github.com/coreservice-io/ULog v0.1.17 h1:Nrfho1wNksxsHK3g2eS5NgaifgjfmxcywEJVa2OkyfE=
+github.com/coreservice-io/ULog v0.1.17/go.mod h1:AUDPBWJxVLwVXzge/aAV4p9AFcpzn1YyWU+u5b8s9Pg=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

@@ -13,7 +13,7 @@ import (
 
 // LogLevel
 
-type LogLevel int
+type LogLevel int32
 
 const (
 	Silent LogLevel = iota + 1

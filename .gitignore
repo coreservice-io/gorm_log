@@ -1,3 +1,17 @@
+**/.DS_Store
+# local env files
+.env.local
+.env.*.local
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -14,3 +28,6 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 /logs/
+logs
+
+

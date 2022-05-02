@@ -1,4 +1,4 @@
-package GormULog
+package gorm_log
 
 import (
 	"context"
@@ -6,13 +6,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/coreservice-io/ULog"
+	"github.com/coreservice-io/log"
 	gormlogger "gorm.io/gorm/logger"
 	"gorm.io/gorm/utils"
 )
 
 // LogLevel
-
 type LogLevel int32
 
 const (
@@ -29,7 +28,7 @@ type Config struct {
 }
 
 type gormLocalLogger struct {
-	LocalLogger               ULog.Logger
+	LocalLogger               log.Logger
 	gormLogLevel              gormlogger.LogLevel
 	SlowThreshold             time.Duration
 	IgnoreRecordNotFoundError bool
@@ -38,9 +37,9 @@ type gormLocalLogger struct {
 	traceStr, traceErrStr, traceWarnStr string
 }
 
-func New_gormLocalLogger(ulog ULog.Logger, config Config) *gormLocalLogger {
+func New_gormLocalLogger(log log.Logger, config Config) *gormLocalLogger {
 	l := &gormLocalLogger{
-		LocalLogger:  ulog,
+		LocalLogger:  log,
 		infoStr:      "%s\n[info] ",
 		warnStr:      "%s\n[warn] ",
 		errStr:       "%s\n[error] ",

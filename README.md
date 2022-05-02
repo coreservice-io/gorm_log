@@ -1,17 +1,18 @@
-# GormULog
+# gorm_log
 
-logger for gorm using ULog
+logger for gorm implementing log interface 
 
 example
 ```go
+
 package main
 
 import (
 	"time"
 
-	"github.com/coreservice-io/GormULog"
-	"github.com/coreservice-io/LogrusULog"
-	"github.com/coreservice-io/ULog"
+	"github.com/coreservice-io/gorm_log"
+	"github.com/coreservice-io/log"
+	"github.com/coreservice-io/logrus_log"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -24,19 +25,19 @@ type Person struct {
 
 func main() {
 	//logger instance
-	logger, _ := LogrusULog.New("./logs", 2, 20, 30)
-	logger.SetLevel(ULog.DebugLevel)
+	logger, _ := logrus_log.New("./logs", 2, 20, 30)
+	logger.SetLevel(log.DebugLevel)
 
 	//new db
 	db, err := gorm.Open(sqlite.Open("./sqlite.db"), &gorm.Config{
 		//use custom logger
-		Logger: GormULog.New_gormLocalLogger(logger, GormULog.Config{
+		Logger: gorm_log.New_gormLocalLogger(logger, gorm_log.Config{
 			SlowThreshold:             500 * time.Millisecond,
 			IgnoreRecordNotFoundError: false,
-			//Level: Silent Error Warn Info. 
+			//Level: Silent Error Warn Info.
 			//Info logs all record.
 			//Silent turns off log.
-			LogLevel:                  GormULog.Info,
+			LogLevel: gorm_log.Info,
 		}),
 	})
 	if err != nil {
@@ -61,5 +62,6 @@ func main() {
 	db.Debug().Last(&qp)
 	logger.Debugln(qp)
 }
+
 
 ```

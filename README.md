@@ -3,6 +3,17 @@
 logger for gorm implementing log interface 
 
 example
+
+```
+create a sqlite.db file with a table name 'person' defined as :
+
+id   int64
+name string
+age  int64
+
+```
+
+
 ```go
 
 package main

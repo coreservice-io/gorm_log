@@ -80,10 +80,8 @@ func (l *gormLocalLogger) Trace(ctx context.Context, begin time.Time, fc func() 
 		var s string
 		if rows == -1 {
 			s = fmt.Sprintf(l.traceErrStr, utils.FileWithLineNum(), err, float64(elapsed.Nanoseconds())/1e6, "-", sql)
-			//l.Printf(l.traceErrStr, utils.FileWithLineNum(), err, float64(elapsed.Nanoseconds())/1e6, "-", sql)
 		} else {
 			s = fmt.Sprintf(l.traceErrStr, utils.FileWithLineNum(), err, float64(elapsed.Nanoseconds())/1e6, rows, sql)
-			//l.Printf(l.traceErrStr, utils.FileWithLineNum(), err, float64(elapsed.Nanoseconds())/1e6, rows, sql)
 		}
 		l.LocalLogger.Errorln(s)
 	case elapsed > l.SlowThreshold && l.SlowThreshold != 0 && l.gormLogLevel >= gormlogger.Warn:
@@ -92,10 +90,8 @@ func (l *gormLocalLogger) Trace(ctx context.Context, begin time.Time, fc func() 
 		slowLog := fmt.Sprintf("SLOW SQL >= %v", l.SlowThreshold)
 		if rows == -1 {
 			s = fmt.Sprintf(l.traceWarnStr, utils.FileWithLineNum(), slowLog, float64(elapsed.Nanoseconds())/1e6, "-", sql)
-			//l.Printf(l.traceWarnStr, utils.FileWithLineNum(), slowLog, float64(elapsed.Nanoseconds())/1e6, "-", sql)
 		} else {
 			s = fmt.Sprintf(l.traceWarnStr, utils.FileWithLineNum(), slowLog, float64(elapsed.Nanoseconds())/1e6, rows, sql)
-			//l.Printf(l.traceWarnStr, utils.FileWithLineNum(), slowLog, float64(elapsed.Nanoseconds())/1e6, rows, sql)
 		}
 		l.LocalLogger.Warnln(s)
 	case l.gormLogLevel == gormlogger.Info:
@@ -103,10 +99,8 @@ func (l *gormLocalLogger) Trace(ctx context.Context, begin time.Time, fc func() 
 		var s string
 		if rows == -1 {
 			s = fmt.Sprintf(l.traceStr, utils.FileWithLineNum(), float64(elapsed.Nanoseconds())/1e6, "-", sql)
-			//l.Printf(l.traceStr, utils.FileWithLineNum(), float64(elapsed.Nanoseconds())/1e6, "-", sql)
 		} else {
 			s = fmt.Sprintf(l.traceStr, utils.FileWithLineNum(), float64(elapsed.Nanoseconds())/1e6, rows, sql)
-			//l.Printf(l.traceStr, utils.FileWithLineNum(), float64(elapsed.Nanoseconds())/1e6, rows, sql)
 		}
 		l.LocalLogger.Infoln(s)
 	}
@@ -114,8 +108,6 @@ func (l *gormLocalLogger) Trace(ctx context.Context, begin time.Time, fc func() 
 
 func (l *gormLocalLogger) Info(ctx context.Context, msg string, data ...interface{}) {
 	if l.gormLogLevel >= gormlogger.Info {
-		//l.Printf(l.infoStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
-
 		s := fmt.Sprintf(l.infoStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
 		l.LocalLogger.Infoln(s)
 	}
@@ -123,8 +115,6 @@ func (l *gormLocalLogger) Info(ctx context.Context, msg string, data ...interfac
 
 func (l *gormLocalLogger) Warn(ctx context.Context, msg string, data ...interface{}) {
 	if l.gormLogLevel >= gormlogger.Warn {
-		//l.Printf(l.warnStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
-
 		s := fmt.Sprintf(l.warnStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
 		l.LocalLogger.Warnln(s)
 	}
@@ -132,8 +122,6 @@ func (l *gormLocalLogger) Warn(ctx context.Context, msg string, data ...interfac
 
 func (l *gormLocalLogger) Error(ctx context.Context, msg string, data ...interface{}) {
 	if l.gormLogLevel >= gormlogger.Error {
-		//l.Printf(l.errStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
-
 		s := fmt.Sprintf(l.errStr+msg, append([]interface{}{utils.FileWithLineNum()}, data...)...)
 		l.LocalLogger.Errorln(s)
 	}

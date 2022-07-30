@@ -1,19 +1,3 @@
-# gorm_log
-
-example
-
-```
-create a sqlite.db file with a table name 'person' defined as :
-
-id   int64
-name string
-age  int64
-
-```
-
-
-```go
-
 package main
 
 import (
@@ -71,6 +55,3 @@ func main() {
 	db.Debug().Last(&qp)
 	logger.Debugln(qp)
 }
-
-
-```

@@ -29,5 +29,6 @@
 # vendor/
 /logs/
 logs
+sqlite.db
 
 
